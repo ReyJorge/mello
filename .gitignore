@@ -1,0 +1,6 @@
+# Ignoruj velké soubory a zálohy
+*.zip
+*.fbx
+*.glb
+mello-blender/
+Mello_backup_general/
