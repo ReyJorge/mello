@@ -14,19 +14,23 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="bg-white shadow p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Mello</h1>
+      <nav className="relative bg-white shadow p-4 flex items-center justify-center">
+        {/* Logo uprostřed */}
+        <h1 className="text-xl font-bold absolute left-1/2 -translate-x-1/2">
+          Mello
+        </h1>
 
-        {/* Hamburger ikonka */}
+        {/* Hamburger vpravo */}
         <button
-          className="md:hidden text-2xl"
+          className="md:hidden absolute right-4 text-lg text-gray-700"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
         >
           ☰
         </button>
 
-        {/* Navigace pro větší obrazovky */}
-        <div className="hidden md:flex space-x-4 items-center">
+        {/* Desktop menu */}
+        <div className="hidden md:flex space-x-4 items-center absolute right-4">
           <NavLinks user={user} handleLogout={handleLogout} />
         </div>
       </nav>
