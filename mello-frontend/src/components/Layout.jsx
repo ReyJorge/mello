@@ -14,49 +14,43 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="bg-white shadow p-4 flex justify-between items-center relative">
+      <nav className="bg-white shadow px-4 py-3 flex items-center justify-between">
         <h1 className="text-xl font-bold">Mello</h1>
 
-        {/* SVG Hamburger ikonka */}
+        {/* Hamburger Icon */}
         <button
-          className="md:hidden z-20 focus:outline-none"
+          className="md:hidden focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          <div className="w-6 h-6 flex flex-col justify-between items-center transform transition-all duration-300 origin-center">
+          <div className="w-6 h-5 flex flex-col justify-between">
             <span
-              className={`block h-0.5 w-full bg-black transform transition duration-300 ease-in-out ${
-                isOpen ? "rotate-45 translate-y-2" : ""
+              className={`block h-0.5 w-full bg-black transform transition duration-300 ${
+                isOpen ? "rotate-45 translate-y-1.5" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-full bg-black transition duration-300 ease-in-out ${
+              className={`block h-0.5 w-full bg-black transition duration-300 ${
                 isOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-full bg-black transform transition duration-300 ease-in-out ${
-                isOpen ? "-rotate-45 -translate-y-2" : ""
+              className={`block h-0.5 w-full bg-black transform transition duration-300 ${
+                isOpen ? "-rotate-45 -translate-y-1.5" : ""
               }`}
             />
           </div>
         </button>
 
-        {/* Navigace pro větší obrazovky */}
+        {/* Desktop menu */}
         <div className="hidden md:flex space-x-4 items-center">
           <NavLinks user={user} handleLogout={handleLogout} />
         </div>
       </nav>
 
-      {/* Mobilní menu (overlay styl) */}
-      <div
-        className={`md:hidden absolute top-16 right-0 w-full bg-white shadow-md transition-all duration-300 ease-in-out ${
-          isOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <div className="p-4 space-y-2">
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow px-4 py-4 space-y-3">
           <NavLinks
             user={user}
             handleLogout={() => {
@@ -66,7 +60,7 @@ export default function Layout({ children }) {
             closeMenu={() => setIsOpen(false)}
           />
         </div>
-      </div>
+      )}
 
       <main className="p-4">{children}</main>
     </div>
@@ -78,22 +72,22 @@ function NavLinks({ user, handleLogout, closeMenu }) {
 
   return (
     <>
-      <Link to="/" className="hover:underline block" onClick={close}>
+      <Link to="/" className="block hover:underline" onClick={close}>
         Domů
       </Link>
-      <Link to="/chat" className="hover:underline block" onClick={close}>
+      <Link to="/chat" className="block hover:underline" onClick={close}>
         Mello Chat
       </Link>
-      <Link to="/skills" className="hover:underline block" onClick={close}>
+      <Link to="/skills" className="block hover:underline" onClick={close}>
         Dovednosti
       </Link>
-      <Link to="/family" className="hover:underline block" onClick={close}>
+      <Link to="/family" className="block hover:underline" onClick={close}>
         Rodina
       </Link>
 
       {user ? (
         <>
-          <span className="text-sm text-gray-600 block">{user.email}</span>
+          <span className="block text-sm text-gray-600">{user.email}</span>
           <button
             onClick={handleLogout}
             className="text-sm text-red-600 underline block"
@@ -105,14 +99,14 @@ function NavLinks({ user, handleLogout, closeMenu }) {
         <>
           <Link
             to="/signin"
-            className="text-blue-600 hover:underline transition block"
+            className="text-blue-600 hover:underline block"
             onClick={close}
           >
             Přihlásit se
           </Link>
           <Link
             to="/onboarding"
-            className="text-blue-600 hover:underline transition block"
+            className="text-blue-600 hover:underline block"
             onClick={close}
           >
             Registrovat
