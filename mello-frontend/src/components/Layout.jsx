@@ -14,36 +14,38 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="bg-white shadow px-4 py-3 flex items-center justify-between">
+      <nav className="bg-white shadow px-4 py-3 flex items-center">
         <h1 className="text-xl font-bold">Mello</h1>
 
-        {/* Hamburger Icon */}
-        <button
-          className="md:hidden focus:outline-none"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
-        >
-          <div className="w-6 h-5 flex flex-col justify-between">
-            <span
-              className={`block h-0.5 w-full bg-black transform transition duration-300 ${
-                isOpen ? "rotate-45 translate-y-1.5" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-full bg-black transition duration-300 ${
-                isOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-full bg-black transform transition duration-300 ${
-                isOpen ? "-rotate-45 -translate-y-1.5" : ""
-              }`}
-            />
-          </div>
-        </button>
+        {/* Hamburger / Close Icon */}
+        <div className="ml-auto md:hidden">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+            className="focus:outline-none"
+          >
+            <div className="w-6 h-6 flex flex-col justify-between">
+              <span
+                className={`block h-0.5 w-full bg-black transform transition duration-300 ${
+                  isOpen ? "rotate-45 translate-y-1.5" : ""
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-full bg-black transition duration-300 ${
+                  isOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-full bg-black transform transition duration-300 ${
+                  isOpen ? "-rotate-45 -translate-y-1.5" : ""
+                }`}
+              />
+            </div>
+          </button>
+        </div>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex space-x-4 items-center">
+        <div className="hidden md:flex space-x-4 items-center ml-auto">
           <NavLinks user={user} handleLogout={handleLogout} />
         </div>
       </nav>
