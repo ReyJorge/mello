@@ -14,30 +14,49 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="relative bg-white shadow p-4 flex items-center justify-center">
-        {/* Logo uprostřed */}
-        <h1 className="text-xl font-bold absolute left-1/2 -translate-x-1/2">
-          Mello
-        </h1>
+      <nav className="bg-white shadow p-4 flex justify-between items-center relative">
+        <h1 className="text-xl font-bold">Mello</h1>
 
-        {/* Hamburger vpravo */}
+        {/* SVG Hamburger ikonka */}
         <button
-          className="md:hidden absolute right-4 text-lg text-gray-700"
+          className="md:hidden z-20 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          ☰
+          <div className="w-6 h-6 flex flex-col justify-between items-center transform transition-all duration-300 origin-center">
+            <span
+              className={`block h-0.5 w-full bg-black transform transition duration-300 ease-in-out ${
+                isOpen ? "rotate-45 translate-y-2" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-full bg-black transition duration-300 ease-in-out ${
+                isOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-full bg-black transform transition duration-300 ease-in-out ${
+                isOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
+            />
+          </div>
         </button>
 
-        {/* Desktop menu */}
-        <div className="hidden md:flex space-x-4 items-center absolute right-4">
+        {/* Navigace pro větší obrazovky */}
+        <div className="hidden md:flex space-x-4 items-center">
           <NavLinks user={user} handleLogout={handleLogout} />
         </div>
       </nav>
 
-      {/* Mobilní menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white shadow px-4 py-2 space-y-2">
+      {/* Mobilní menu (overlay styl) */}
+      <div
+        className={`md:hidden absolute top-16 right-0 w-full bg-white shadow-md transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="p-4 space-y-2">
           <NavLinks
             user={user}
             handleLogout={() => {
@@ -47,7 +66,7 @@ export default function Layout({ children }) {
             closeMenu={() => setIsOpen(false)}
           />
         </div>
-      )}
+      </div>
 
       <main className="p-4">{children}</main>
     </div>
@@ -55,7 +74,7 @@ export default function Layout({ children }) {
 }
 
 function NavLinks({ user, handleLogout, closeMenu }) {
-  const close = () => closeMenu && closeMenu(); // pokud je funkce definovaná (mobilní menu)
+  const close = () => closeMenu && closeMenu();
 
   return (
     <>
